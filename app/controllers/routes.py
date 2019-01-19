@@ -5,3 +5,8 @@ from flask import render_template
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/')
+def charsheet():
+    return render_template('charsheet.html')

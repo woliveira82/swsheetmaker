@@ -5,3 +5,18 @@
 .section{
     margin-bottom: 2em;
 }
+
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.col {
+    padding-bottom: 1em;
+}
+
+.form-label-group {
+    padding: 2em;
+    background-color: #f0f0f0;
+}

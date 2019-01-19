@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>Savage Worlds</title>
+    <link rel='stylesheet' href='{{ url_for("static", filename="css/bootstrap.min.css") }}'>
+    <link rel='stylesheet' href='{{ url_for("static", filename="css/index.css") }}'>
+</head>
+
+<body>
+    <div id='content'>
+        <div class='section'>
+            <div class='row'>
+                <div class='col-3 text-center'>
+                    <img src='{{ url_for("static", filename="img/SW_LOGO_24bit.png")}}' style='width:50%'>
+                </div>
+                <div class='col-9'>
+                    <h1>Fantasy Companion</h1>
+                </div>
+            </div>
+        </div>
+        <div class='section'>
+            <div class='row'>
+                <div class='col-5'>NAME <input type='text'></div>
+                <div class='col-5'>RACE <input type='text'></div>
+                <div class='col-2'>GENDER <input type='text' size='4'></div>
+            </div>
+            <div class=row>
+                <div class='col-4'>HEIGHT <input type='text'></div>
+                <div class='col-4'>WEIGHT <input type='text'></div>
+                <div class='col-4'>PROFESSION <input type='text'></div>
+            </div>
+            <div class=row>
+                <div class='col-4'>RANK <input type='text'></div>
+                <div class='col-4'>HOMELAND <input type='text'></div>
+                <div class='col-4'>DEITY <input type='text'></div>
+            </div>
+            <div class=row>
+                <div class='col-5'>LOOT <input type='text'></div>
+                <div class='col-5'>CAMPAIGN <input type='text'></div>
+                <div class='col-2'>XP <input type='text' size='4'></div>
+            </div>
+        </div>
+        <div class='section'>
+            <div class='row'>
+                <div class='col-6'>
+                    <div class='row'>
+                        <div class='col-7'>AGILITY</div>
+                        <div class='col-1'>D4</div>
+                        <div class='col-1'>D6</div>
+                        <div class='col-1'>D8</div>
+                        <div class='col-1'>D10</div>
+                        <div class='col-1'>D12</div>
+                    </div>
+                    <div class='row'>
+                            <div class='col-7'>SMARTS</div>
+                            <div class='col-1'>D4</div>
+                            <div class='col-1'>D6</div>
+                            <div class='col-1'>D8</div>
+                            <div class='col-1'>D10</div>
+                            <div class='col-1'>D12</div>
+                    </div>
+                    <div class='row'>
+                            <div class='col-7'>SPIRIT</div>
+                            <div class='col-1'>D4</div>
+                            <div class='col-1'>D6</div>
+                            <div class='col-1'>D8</div>
+                            <div class='col-1'>D10</div>
+                            <div class='col-1'>D12</div>
+                    </div>
+                    <div class='row'>
+                            <div class='col-7'>STRENGTH</div>
+                            <div class='col-1'>D4</div>
+                            <div class='col-1'>D6</div>
+                            <div class='col-1'>D8</div>
+                            <div class='col-1'>D10</div>
+                            <div class='col-1'>D12</div>
+                    </div>
+                    <div class='row'>
+                            <div class='col-7'>VIGOR</div>
+                            <div class='col-1'>D4</div>
+                            <div class='col-1'>D6</div>
+                            <div class='col-1'>D8</div>
+                            <div class='col-1'>D10</div>
+                            <div class='col-1'>D12</div>
+                    </div>
+                </div>
+                <div class='col-6'>
+
+                </div>
+            </div>
+        </div>
+        <div class='section'>
+            Racial Abilities
+        </div>
+        <div class='section'>
+            Skills
+        </div>
+        <div class='section'>
+
+        </div>
+        <h1>Hello, Bootstrap</h1>
+        <div class="alert alert-primary" role="alert">
+            This is a primary alert—check it out!
+        </div>
+        <div class="alert alert-secondary" role="alert">
+            This is a secondary alert—check it out!
+        </div>
+        <script src='{{ url_for("static", filename="js/bootstrap.min.js")}}'></script>
+    </div>
+</body>
+
+</html>
