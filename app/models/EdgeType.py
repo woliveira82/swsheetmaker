@@ -1,5 +1,6 @@
 from app import db
 
+
 class EdgeType(db.Model):
     
     __tablename__ = 'edge_type'

@@ -1,5 +1,6 @@
 from app import db
 
+
 class Rank(db.Model):
     
     __tablename__ = 'rank'
