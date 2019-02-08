@@ -3,7 +3,7 @@ from app import db
 
 class Scenario(db.Model):
     
-    __tablename__ = 'character'
+    __tablename__ = 'scenario'
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(120), nullable = False)

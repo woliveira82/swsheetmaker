@@ -6,8 +6,8 @@ class CharacterEdge(db.Model):
     __tablename__ = 'character_edge'
     
     id = db.Column(db.Integer, primary_key = True)
-    character_id = db.Column(db.Integer, db.ForeignKey('Character.id'))
-    edge_id = db.Column(db.Integer, db.ForeignKey('Edge.id'))
+    character_id = db.Column(db.Integer, db.ForeignKey('character.id'))
+    edge_id = db.Column(db.Integer, db.ForeignKey('edge.id'))
 
 
     def __init__(self, id, character_id, edge_id):
