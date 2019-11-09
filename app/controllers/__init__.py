@@ -1,10 +1,6 @@
-from flask import Flask
+from app import app
+from app.controllers.Scenarios import Scenarios
 
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return 'Hello World'
-
-if __name__ == '__main__':
-    app.run()
+view_scenarios = Scenarios.as_view('scenarios')
+app.add_url_rule('/scenarios', view_func=view_scenarios, methods=['GET'])
+# app.add_url_rule('/scenarios/<int:scenario_id>', view_func=view_scenarios, methods=['GET'])
