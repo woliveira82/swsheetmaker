@@ -1,16 +1,36 @@
 from app import db
+from app.inc import Dao
 
 
-class Scenario(db.Model):
+class Scenario(db.Model, Dao):
     
     __tablename__ = 'scenario'
 
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(120), nullable = False)
-    description = db.Column(db.Text)
+    __id = db.Column('id', db.Integer, primary_key=True)
+    __name = db.Column('name', db.String(120), nullable=False)
+    __description = db.Column('description', db.Text)
 
 
-    def __init__(self, name, description):
-        
-        self.name = name
-        self.description = description
+    def __init__(self, name, description=None):
+        self.__name = name
+        self.__description = description
+    
+    
+    @property
+    def name(self):
+        return self.__name
+
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+
+    @property
+    def description(self):
+        return self.__description
+
+
+    @description.setter
+    def description(self, description):
+        self.__description = description
