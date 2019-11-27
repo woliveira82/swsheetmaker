@@ -1,5 +1,5 @@
 from app import db
-from app.inc import Dao
+from inc import Dao
 
 
 class Scenario(db.Model, Dao):
@@ -12,10 +12,24 @@ class Scenario(db.Model, Dao):
 
 
     def __init__(self, name, description=None):
+        print(name, description)
         self.__name = name
         self.__description = description
+     
     
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description
+        }
+
     
+    @property
+    def id(self):
+        return self.__id
+
+
     @property
     def name(self):
         return self.__name
