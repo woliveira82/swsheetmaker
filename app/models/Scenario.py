@@ -11,8 +11,8 @@ class Scenario(db.Model, Dao):
     __description = db.Column('description', db.Text)
 
 
-    def __init__(self, name, description=None):
-        print(name, description)
+    def __init__(self, name, description=None, id=None):
+        self.__id = id
         self.__name = name
         self.__description = description
      

@@ -9,11 +9,10 @@ class Dao:
     def read(cls, search=None):
         try:
             exist = cls.query.all() if search is None else cls.query.filter_by(**search).all()
-                
-            if len(exist) is not 0:
-                return {'response': [i.serialize for i in exist], 'status': 200}
+            if len(exist) == 0:
+                return {'response': [], 'status': 404}
 
-            return {'response': [], 'status': 404}
+            return {'response': [i for i in exist], 'status': 200}
 
         except Exception as e:
             return {'response': [str(e)], 'status': 406}
@@ -62,12 +61,12 @@ class Dao:
         search = { 'id': self.id }
         try:
             query = self.__class__.query.filter_by(**search).first()
-            if search is not None:
-                db.session.delete(query)
-                db.session.commit()
-                return {'response': ['Successfully deleted'], 'status': 200}
+            if search is None:
+                return {'response': [], 'status': 404}
 
-            return {'response': [], 'status': 404}
+            db.session.delete(query)
+            db.session.commit()
+            return {'response': ['Successfully deleted'], 'status': 200}
 
         except Exception as e:
             db.session.rollback()
