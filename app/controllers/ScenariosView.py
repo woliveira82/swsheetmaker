@@ -43,9 +43,14 @@ class ScenariosView(MethodView):
         [data.pop(key) for key in none_values]
 
         if len(data) == 0:
-            return jsonify({'message': 'No valid variables sent'}), 400
+            return {'message': 'No valid variables sent'}, 400
 
         data.update({'id': scenario_id})
         scenario = Scenario(data['name'], data['description'], data['id'])
         result = scenario.update()
+        return result['response'], result['status']
+
+
+    def delete(self, scenario_id):
+        result = Scenario.delete(scenario_id)
         return result['response'], result['status']

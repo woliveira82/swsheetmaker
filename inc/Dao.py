@@ -77,22 +77,19 @@ class Dao:
             db.session.close()
 
 
-    def delete(self):
-        search = { 'id': self.id }
+    @classmethod
+    def delete(cls, class_id):
         try:
-            query = self.__class__.query.filter_by(**search).first()
-            if search is None:
-                return {'response': 'Resource not found', 'status': 404}
+            instance = cls.query.get(class_id)
+            if not instance:
+                return {'response': 'Not found', 'status': 404}
 
-            db.session.delete(query)
+            db.session.delete(instance)
             db.session.commit()
-            response = {'response': self.as_dict(), 'status': 200}
-            self = None
-            return response
+            return {'response': instance.as_dict(), 'status': 200}
 
         except Exception as e:
-            db.session.rollback()
             return {'response': str(e), 'status': 406}
-            
+
         finally:
             db.session.close()
