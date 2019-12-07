@@ -1,6 +1,5 @@
 
 from app import db
-from flask_sqlalchemy import inspect
 
 class Dao:
 
@@ -57,11 +56,15 @@ class Dao:
 
 
     def update(self):
-        search = { 'id': self.id }
+        instance = self.as_dict()
+        class_id = instance.pop('id')
         try:
-            result = self.__class__.query.filter_by(**search).update(**self.as_dict())
-            if result == 0:
+            old_class = self.__class__.query.get(class_id)
+            if old_class == 0:
                 return {'response': 'Resource not found', 'status': 404}
+
+            for k, v in instance.items():
+                setattr(old_class, k, v)
 
             db.session.commit()
             return {'response': self.as_dict(), 'status': 200}

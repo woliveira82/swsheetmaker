@@ -42,5 +42,4 @@ class ScenariosView(MethodView):
         data.update({'id': scenario_id})
         scenario = Scenario(data['name'], data['description'], data['id'])
         result = scenario.update()
-
-        return result['response'][0], result['status']
+        return result['response'], result['status']
