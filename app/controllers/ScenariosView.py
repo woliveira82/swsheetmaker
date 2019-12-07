@@ -39,6 +39,12 @@ class ScenariosView(MethodView):
         parser.add_argument('description', location='json')
         data = parser.parse_args()
 
+        none_values = [k for k, v in data.items() if not v]
+        [data.pop(key) for key in none_values]
+
+        if len(data) == 0:
+            return jsonify({'message': 'No valid variables sent'}), 400
+
         data.update({'id': scenario_id})
         scenario = Scenario(data['name'], data['description'], data['id'])
         result = scenario.update()
