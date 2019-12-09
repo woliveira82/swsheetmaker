@@ -1,5 +1,5 @@
 from app import db
-from inc import Dao
+from app.inc import Dao
 
 
 class Scenario(db.Model, Dao):

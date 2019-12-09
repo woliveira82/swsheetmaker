@@ -2,6 +2,7 @@ from flask.views import MethodView
 from app.models import Scenario
 from flask import jsonify
 from flask_restful import reqparse
+from app.inc import Response
 
 
 class ScenariosView(MethodView):
@@ -10,15 +11,11 @@ class ScenariosView(MethodView):
     def get(self, scenario_id=None):
         if not scenario_id:
             response = Scenario.read_all()
-            scenario_list = response['response']
-            return {'data': [scenario.as_dict() for scenario in scenario_list]}, response['status']
+            scenario_list = [scenario for scenario in response['response']]
+            return Response(scenario_list).status(response['status'])
         
-        response = Scenario.read(scenario_id)
-        if response['status'] != 200:
-            return {'data': []}, response['status']
-
-        scenario = response['response']
-        return {'data': scenario.as_dict()}, response['status']
+        scenario = Scenario.read(scenario_id)
+        return Response(scenario['response']).status(scenario['status'])
 
 
     def post(self):
@@ -30,7 +27,7 @@ class ScenariosView(MethodView):
         scenario = Scenario(data['name'], data['description'])
         result = scenario.create()
 
-        return result['response'], result['status']
+        return Response(result['response']).status(result['status'])
 
 
     def put(self, scenario_id):
@@ -43,14 +40,14 @@ class ScenariosView(MethodView):
         [data.pop(key) for key in none_values]
 
         if len(data) == 0:
-            return {'message': 'No valid variables sent'}, 400
+            return Response('').status(400, 'No valid variables sent')
 
         data.update({'id': scenario_id})
         scenario = Scenario(data['name'], data['description'], data['id'])
         result = scenario.update()
-        return result['response'], result['status']
+        return Response(result['response']).status(result['status'])
 
 
     def delete(self, scenario_id):
         result = Scenario.delete(scenario_id)
-        return result['response'], result['status']
+        return Response(result['response']).status(result['status'], 'Successful deleted')

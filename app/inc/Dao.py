@@ -1,5 +1,5 @@
-
 from app import db
+
 
 class Dao:
 
@@ -11,7 +11,7 @@ class Dao:
             if len(exist) == 0:
                 return {'response': [], 'status': 404}
 
-            return {'response': [i for i in exist], 'status': 200}
+            return {'response': [i.as_dict() for i in exist], 'status': 200}
 
         except Exception as e:
             return {'response': [str(e)], 'status': 406}
@@ -28,7 +28,7 @@ class Dao:
             if not result_class:
                 return {'response': 'Not found', 'status': 404}
 
-            return {'response': result_class, 'status': 200}
+            return {'response': result_class.as_dict(), 'status': 200}
 
         except Exception as e:
             return {'response': str(e), 'status': 406}
@@ -44,8 +44,9 @@ class Dao:
             query = self.__class__(**data)
             db.session.add(query)
             db.session.commit()
-            self.__id = query.id
-            return {'response': self.as_dict(), 'status': 201}
+            instance = self.as_dict()
+            instance.update({'id': query.id})
+            return {'response': instance, 'status': 201}
 
         except Exception as e:
             db.session.rollback()
