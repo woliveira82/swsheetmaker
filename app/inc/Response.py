@@ -2,17 +2,14 @@
 class Response:
 
 
-    def __init__(self, data):
+    def __init__(self, data, status=200, message=None):
         self.data = data
+        self.status = status
+        self. message = message
 
 
-    def status(self, status, message=None):
-        return self._success(status, message) if status < 400 else self._error(status, message)
-
-
-    def _success(self, status, message=None):
-
-        http_success_tatus = {
+    def to_dict(self):
+        http_success_status = {
             100: 'Continue',
             101: 'Switching Protocols',
             103: 'Early Hints',
@@ -34,61 +31,7 @@ class Response:
 
         response = {
             'data': self.data,
-            'message': message if message else http_success_tatus.get(status, ''),
-            'status': status
+            'message': self.message if self.message else http_success_status.get(self.status, ''),
+            'status': self.status
         }
-        return response, status
-
-
-    def _error(self, status, message=None):
-
-        http_error_tatus = {
-            400: 'Bad Request',
-            401: 'Unauthorized',
-            402: 'Payment Required',
-            403: 'Forbidden',
-            404: 'Not Found',
-            405: 'Method Not Allowed',
-            406: 'Not Acceptable',
-            407: 'Proxy Authentication Required',
-            408: 'Request Timeout',
-            409: 'Conflict',
-            410: 'Gone',
-            411: 'Length Required',
-            412: 'Precondition Failed',
-            413: 'Payload Too Large',
-            414: 'URI Too Long',
-            415: 'Unsupported Media Type',
-            416: 'Range Not Satisfiable',
-            417: 'Expectation Failed',
-            418: 'I\'m a teapot',
-            422: 'Unprocessable Entity',
-            425: 'Too Early',
-            426: 'Upgrade Required',
-            428: 'Precondition Required',
-            429: 'Too Many Requests',
-            431: 'Request Header Fields Too Large',
-            451: 'Unavailable For Legal Reasons',
-            500: 'Internal Server Error',
-            501: 'Not Implemented',
-            502: 'Bad Gateway',
-            503: 'Service Unavailable',
-            504: 'Gateway Timeout',
-            505: 'HTTP Version Not Supported',
-            506: 'Variant Also Negotiates',
-            507: 'Insufficient Storage',
-            508: 'Loop Detected',
-            510: 'Not Extended',
-            511: 'Network Authentication Required'
-        }
-
-        response = {
-            'error': {
-                'data': self.data,
-                'message': message if message else http_error_tatus.get(status, ''),
-            },
-            'status': status
-        }
-        return response, status
-
-
+        return response, self.status

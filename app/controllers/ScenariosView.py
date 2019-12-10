@@ -3,7 +3,7 @@ from app.models import Scenario
 from flask import jsonify
 from flask_restful import reqparse
 from app.inc import Response
-
+from exception import ResponseException
 
 class ScenariosView(MethodView):
 
@@ -11,11 +11,10 @@ class ScenariosView(MethodView):
     def get(self, scenario_id=None):
         if not scenario_id:
             response = Scenario.read_all()
-            scenario_list = [scenario for scenario in response['response']]
-            return Response(scenario_list).status(response['status'])
+            return Response(response).to_dict()
         
         scenario = Scenario.read(scenario_id)
-        return Response(scenario['response']).status(scenario['status'])
+        return Response(scenario).to_dict()
 
 
     def post(self):
@@ -27,7 +26,7 @@ class ScenariosView(MethodView):
         scenario = Scenario(data['name'], data['description'])
         result = scenario.create()
 
-        return Response(result['response']).status(result['status'])
+        return Response(result, 201).to_dict()
 
 
     def put(self, scenario_id):
@@ -40,14 +39,14 @@ class ScenariosView(MethodView):
         [data.pop(key) for key in none_values]
 
         if len(data) == 0:
-            return Response('').status(400, 'No valid variables sent')
+            raise ResponseException('', 400, 'No valid parameters sent')
 
         data.update({'id': scenario_id})
         scenario = Scenario(data['name'], data['description'], data['id'])
         result = scenario.update()
-        return Response(result['response']).status(result['status'])
+        return Response(result, 200, 'Successfuly updated').to_dict()
 
 
     def delete(self, scenario_id):
         result = Scenario.delete(scenario_id)
-        return Response(result['response']).status(result['status'], 'Successful deleted')
+        return Response(result, 200, 'Successfuly deleted').to_dict()
