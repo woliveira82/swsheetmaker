@@ -2,10 +2,20 @@
 class Response:
 
 
-    def __init__(self, data, status=200, message=None):
-        self.data = data
+    def __init__(self, data, status=200, message=None, simple_response=False):
+        self.data = self._set_data(data, simple_response)
         self.status = status
         self. message = message
+
+
+    def _set_data(self, data, simple_response):
+        if simple_response:
+            return data
+        
+        if type(data) is  list:
+            return [instance.as_dict() for instance in data]
+
+        return data.as_dict()
 
 
     def to_dict(self):

@@ -9,20 +9,14 @@ class Dao:
     def read_all(cls):
         exist = cls.query.all()
         db.session.close()
-        if exist:
-            return [instance.as_dict() for instance in exist]
-
         return exist
 
 
     @classmethod
     def read(cls, class_id):
-        result_class = cls.query.get(class_id)
+        instance = cls.query.get(class_id)
         db.session.close()
-        if not result_class:
-            return None
-
-        return result_class.as_dict()
+        return instance
 
 
     def create(self):
@@ -31,12 +25,13 @@ class Dao:
         
         query = self.__class__(**data)
         db.session.add(query)
-        db.session.commit()
-        instance = self.as_dict()
-        instance.update({'id': query.id})
-        db.session.close()
-        return instance
-
+        try:
+            db.session.commit()
+            self.id = query.id
+        except:
+            raise ResponseException('Could not create the instance', 500)
+        finally:
+            db.session.close()
 
 
     def update(self):
@@ -51,9 +46,12 @@ class Dao:
         for k, v in instance.items():
             setattr(old_class, k, v)
 
-        db.session.commit()
-        db.session.close()
-        return self.as_dict()
+        try:
+            db.session.commit()
+        except:
+            raise ResponseException('Could not update the instance', 500)
+        finally:
+            db.session.close()
 
 
     @classmethod
@@ -65,4 +63,4 @@ class Dao:
         db.session.delete(instance)
         db.session.commit()
         db.session.close()
-        return instance.as_dict()
+        return instance
