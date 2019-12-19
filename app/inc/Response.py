@@ -15,6 +15,9 @@ class Response:
         if type(data) is  list:
             return [instance.as_dict() for instance in data]
 
+        if not data:
+            return {}
+
         return data.as_dict()
 
 
