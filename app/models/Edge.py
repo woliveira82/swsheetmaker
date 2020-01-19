@@ -14,9 +14,9 @@ class Edge(db.Model, Dao):
 
 
     def __init__(self, name, improved):
-        self.id = id
-        self.name = name
-        self.improved = improved
+        self.__id = id
+        self.__name = name
+        self.__improved = improved
 
 
     def as_dict(self):
