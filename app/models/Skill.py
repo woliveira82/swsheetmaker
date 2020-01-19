@@ -7,7 +7,7 @@ class Skill(db.Model):
     
     __id = db.Column('id', db.Integer, primary_key=True)
     __name = db.Column('name', db.String(32), unique=True, nullable=False)
-    __attribute = db.Column('attribute', db.String(120))
+    __attribute = db.Column('attribute', db.String(8), nullable=False)
     __description = db.Column('description', db.Text)
 
 

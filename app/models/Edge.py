@@ -7,7 +7,7 @@ class Edge(db.Model, Dao):
     __tablename__ = 'edge'
 
     __id = db.Column('id', db.Integer, primary_key=True)
-    __name = db.Column('name', db.String(120), unique=True, nullable=False)
+    __name = db.Column('name', db.String(32), unique=True, nullable=False)
     __description = db.Column('description', db.Text())
     __rank = db.Column('rank', db.Integer, db.ForeignKey('scenario.id'), nullable=False)
     # __requirements = db.Column('requirements')

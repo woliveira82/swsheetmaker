@@ -6,9 +6,9 @@ class Rank(db.Model, Dao):
     
     __tablename__ = 'rank'
     
-    __id = db.Column(db.Integer, primary_key=True)
-    __name = db.Column(db.String(16), unique=True, nullable=False)
-    __xp = db.Column(db.Integer, unique=True, nullable=False)
+    __id = db.Column('id', db.Integer, primary_key=True)
+    __name = db.Column('name', db.String(16), unique=True, nullable=False)
+    __xp = db.Column('xp', db.Integer, unique=True, nullable=False)
 
 
     def __init__(self, name, xp, id=None):
